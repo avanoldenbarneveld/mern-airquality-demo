@@ -14,6 +14,8 @@ app.use(express.json());
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
 // Items endpoints
+
+// GET /api/items → list all items
 app.get("/api/items", async (_req, res) => {
   try {
     const items = await Item.find();
@@ -23,6 +25,7 @@ app.get("/api/items", async (_req, res) => {
   }
 });
 
+// POST /api/items → create new item (requires "name")
 app.post("/api/items", async (req, res) => {
   try {
     const { name, note } = req.body;
@@ -37,7 +40,7 @@ app.post("/api/items", async (req, res) => {
   }
 });
 
-// Air quality route
+// Air quality routes (WIP: currently test only)
 app.use("/api/airquality", airQualityRoutes);
 
 const PORT = process.env.PORT || 4000;

@@ -3,7 +3,7 @@ import fetch from "node-fetch";
 
 const router = express.Router();
 
-// Temporary test
+// GET /api/airquality → test call to OpenAQ v3 (returns 1 location)
 router.get("/", async (_req, res) => {
   try {
     const response = await fetch(
