@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { listItems } from "./api";
 import NewItemForm from "./components/NewItemForm";
+import AirQualityWidget from "./components/AirQualityWidget";
 
 export default function App() {
   const [items, setItems] = useState([]);
@@ -29,6 +30,8 @@ export default function App() {
           ))}
         </ul>
       )}
+
+      <AirQualityWidget />
     </main>
   );
 }
