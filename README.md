@@ -3,6 +3,13 @@
 Proyecto de prueba técnica con stack MERN simplificado.
 Actualmente está implementada la parte de backend con servidor Express, conexión a MongoDB Atlas y un widget de calidad del aire con datos de OpenAQ.
 
+## 🌐 Demo online
+
+El proyecto puede probarse directamente aquí:  
+➡️ [Frontend en Vercel](https://inbiot-fullstack-test.vercel.app)  
+➡️ [Backend en Render](https://inbiot-fullstack-test.onrender.com)
+
+
 ---
 
 ## 🚀 Backend
@@ -53,6 +60,14 @@ npm run dev
 * `POST /api/items` → crea un nuevo item.
 * `GET /api/airquality?lat=<lat>&lon=<lon>` → devuelve calidad del aire para coordenadas.
 
+### Deployment
+
+El backend está desplegado en Render:
+
+```
+https://inbiot-fullstack-test.onrender.com
+```
+
 ---
 
 ## 💻 Frontend
@@ -73,6 +88,14 @@ npm run dev
 cd client
 npm install
 npm run dev
+```
+
+### Deployment
+
+El frontend está desplegado en Vercel:
+
+```
+https://inbiot-fullstack-test.vercel.app
 ```
 
 ---
