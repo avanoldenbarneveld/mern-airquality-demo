@@ -7,7 +7,10 @@ import airQualityRoutes from "./routes/airquality.js";
 
 const app = express();
 
-app.use(cors());
+app.use(cors({
+  origin: "https://inbiot-fullstack-test.vercel.app"
+}));
+
 app.use(express.json());
 
 // Healthcheck
@@ -40,7 +43,7 @@ app.post("/api/items", async (req, res) => {
   }
 });
 
-// Air quality routes (WIP: currently test only)
+// Air quality routes
 app.use("/api/airquality", airQualityRoutes);
 
 const PORT = process.env.PORT || 4000;
