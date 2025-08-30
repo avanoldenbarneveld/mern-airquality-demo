@@ -1,7 +1,9 @@
+import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import { connectDB } from "./db.js";
 import { Item } from "./models/Items.js";
+import airQualityRoutes from "./routes/airquality.js";
 
 const app = express();
 
@@ -11,7 +13,7 @@ app.use(express.json());
 // Healthcheck
 app.get("/health", (_req, res) => res.json({ ok: true }));
 
-// GET /api/items
+// Items endpoints
 app.get("/api/items", async (_req, res) => {
   try {
     const items = await Item.find();
@@ -21,7 +23,6 @@ app.get("/api/items", async (_req, res) => {
   }
 });
 
-// POST /api/items
 app.post("/api/items", async (req, res) => {
   try {
     const { name, note } = req.body;
@@ -35,6 +36,9 @@ app.post("/api/items", async (req, res) => {
     res.status(500).json({ error: err.message });
   }
 });
+
+// Air quality route
+app.use("/api/airquality", airQualityRoutes);
 
 const PORT = process.env.PORT || 4000;
 
