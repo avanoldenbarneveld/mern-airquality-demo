@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 
+const API = import.meta.env.VITE_API_URL || "http://localhost:4000";
+
 export default function AirQualityWidget() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -10,7 +12,7 @@ export default function AirQualityWidget() {
     setError(null);
 
     try {
-      const res = await fetch("http://localhost:4000/api/airquality?lat=42.8169&lon=-1.6432");
+      const res = await fetch(`${API}/api/airquality?lat=42.8169&lon=-1.6432`);
       if (!res.ok) throw new Error("Failed to fetch air quality data");
       const json = await res.json();
       setData(json);
