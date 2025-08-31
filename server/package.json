@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "node --watch src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node src/index.js",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest --runInBand"
   },
   "keywords": [],
   "author": "",
@@ -17,5 +18,9 @@
     "express": "^5.1.0",
     "mongoose": "^8.18.0",
     "node-fetch": "^3.3.2"
+  },
+  "devDependencies": {
+    "jest": "^30.1.1",
+    "supertest": "^7.1.4"
   }
 }
