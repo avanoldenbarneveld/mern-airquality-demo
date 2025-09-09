@@ -1,50 +1,53 @@
 # Inbiot Full Stack Test
 
-Proyecto de prueba técnica con stack MERN simplificado.
-Actualmente está implementada la parte de backend con servidor Express, conexión a MongoDB Atlas y un widget de calidad del aire con datos de OpenAQ.
+Technical test built with a **simplified MERN stack** under a tight deadline.  
+The goal was to build a backend with Express + MongoDB, a React frontend, and consume data from an external API (OpenAQ).
 
-## 🌐 Demo online
+Beyond just meeting the requirements, my intention was to demonstrate that I could set up an **end-to-end project**, connect all the moving parts, and have it running online in just a few hours.
 
-El proyecto puede probarse directamente aquí:
+---
 
-➡️ [Backend en Render](https://inbiot-fullstack-test.onrender.com)
+## 🌐 Online Demo
 
-➡️ [Frontend en Vercel](https://inbiot-fullstack-test.vercel.app)
+The project can be tested directly here:
 
-Se debe acceder en primer lugar al backend para despertar el servicio, y acto seguido estarán los datos disponibles en el frontend.
+➡️ [Backend on Render](https://inbiot-fullstack-test.onrender.com)  
+➡️ [Frontend on Vercel](https://inbiot-fullstack-test.vercel.app)
+
+> Note: Render puts the backend to sleep after inactivity. It’s necessary to open the backend first to “wake up” the service and then access the frontend.
 
 ---
 
 ## 🚀 Backend
 
-### Tecnologías
+### Technologies
 
-* Node.js + Express
-* MongoDB Atlas + Mongoose
-* Dotenv
-* OpenAQ API
+- **Node.js + Express** → simple, fast to set up, perfect for this kind of project.  
+- **MongoDB Atlas + Mongoose** → first time using NoSQL. Atlas let me externalize the database without managing servers, and Mongoose made it easy to handle validations in one place instead of repeating them in every endpoint.  
+- **Dotenv** for managing credentials.  
+- **OpenAQ API** as the external API.
 
-### Estructura
+### Structure
 
 ```
 server/
  ├── .env
  ├── package.json
  └── src/
-     ├── db.js
-     ├── index.js
+     ├── db.js           # connection to MongoDB Atlas
+     ├── index.js        # server entry point
      ├── models/
-     │    └── Items.js
+     │    └── Items.js   # schema and model for Items
      └── routes/
-          └── airquality.js
+          └── airquality.js # OpenAQ integration
 ```
 
-### Variables de entorno
+### Environment variables
 
-```
+```env
 PORT=4000
-MONGODB_URI=<connection string de MongoDB Atlas>
-OPENAQ_API_KEY=<tu API key de OpenAQ>
+MONGODB_URI=<MongoDB Atlas connection string>
+OPENAQ_API_KEY=<your OpenAQ API key>
 ```
 
 ### Scripts
@@ -57,28 +60,26 @@ npm run dev
 
 ### Endpoints
 
-* `GET /health` → comprueba que el servidor responde.
-* `GET /api/items` → lista todos los items.
-* `POST /api/items` → crea un nuevo item.
-* `GET /api/airquality?lat=<lat>&lon=<lon>` → devuelve calidad del aire para coordenadas.
+- `GET /health` → checks if the server is responding.  
+- `GET /api/items` → lists all items.  
+- `POST /api/items` → creates a new item.  
+- `GET /api/airquality?lat=<lat>&lon=<lon>` → returns nearby monitoring stations with measured parameters.
 
 ### Deployment
 
-El backend está desplegado en Render:
+The backend is deployed on **Render**, chosen because it allows going from repo to live API in minutes and has a sufficient free tier:
 
 ```
 https://inbiot-fullstack-test.onrender.com
 ```
 
-### Tests unitarios
+### Unit tests
 
-El proyecto incluye **tests unitarios básicos** en la carpeta `server/tests/`, implementados con **Jest** y **Supertest**. Cubren:
+Includes **basic tests** with **Jest** and **Supertest** in `server/tests/`:
 
-* Healthcheck (`/health`).
-* Lectura de items (`GET /api/items`).
-* Creación de items (`POST /api/items`).
-
-Para ejecutarlos:
+- Healthcheck (`/health`).  
+- Item reading (`GET /api/items`).  
+- Item creation (`POST /api/items`).  
 
 ```bash
 cd server
@@ -89,15 +90,15 @@ npm test
 
 ## 💻 Frontend
 
-### Tecnologías
+### Technologies
 
-* React + Vite
+- **React + Vite** → already familiar with React, and Vite gave me fast dev server, HMR, and easy `.env` handling.
 
-### Funcionalidades
+### Features
 
-* Lista de items desde backend.
-* Formulario para añadir nuevos items.
-* Widget de calidad del aire (OpenAQ) mostrando parámetros medidos.
+- Displays items from the backend.  
+- Form to add new items.  
+- Air quality widget (OpenAQ).  
 
 ### Scripts
 
@@ -109,7 +110,7 @@ npm run dev
 
 ### Deployment
 
-El frontend está desplegado en Vercel:
+The frontend is deployed on **Vercel**, which I was already using for personal projects:
 
 ```
 https://inbiot-fullstack-test.vercel.app
@@ -117,35 +118,46 @@ https://inbiot-fullstack-test.vercel.app
 
 ---
 
-## ⚙️ Decisiones técnicas
+## ⚙️ Technical decisions
 
-* **Express + Node.js**: Tenía experiencia previa con las dos y encaja perfecto con las necesidades de este proyecto.
-* **React + Vite**: También tenía experiencia previa con estas dos, y tambiénn encajan perfectamente con las necesidades del proyecto.
-* **MongoDB Atlas (NoSQL)**: venía de SQL, pero he querido utilizar una base no relacional para probar el stack MERN. Atlas facilita mucho el despliegue y credenciales.
+- **Express + Node.js**: simple, proven, and quick to set up.  
+- **React + Vite**: I already knew React, and Vite makes setup and environment variables easier.  
+- **MongoDB Atlas (NoSQL)**: I came from SQL, but the test required NoSQL. I chose MongoDB over Firestore because it offers more flexibility in validations and because I wanted to try the full MERN stack.  
+- **Mongoose**: centralizes validation in the model instead of repeating it in every endpoint.  
+- **Render + Vercel**: fast deployment, free tier, and `.env` support.  
 
 ---
 
-## ▶️ Cómo levantar el proyecto en local
+## ▶️ How to run the project locally
 
-1. Clonar el repositorio.
-2. Crear dos ficheros `.env`:
+1. Clone the repository.  
+2. Create two `.env` files:
 
-   * En `server/.env` incluir `PORT`, `MONGODB_URI` y `OPENAQ_API_KEY`.
-   * En `client/.env` incluir `VITE_API_URL=http://localhost:4000`.
-3. Instalar dependencias y lanzar backend:
+   - In `server/.env` → `PORT`, `MONGODB_URI`, and `OPENAQ_API_KEY`.  
+   - In `client/.env` → `VITE_API_URL=http://localhost:4000`.  
+
+3. Install dependencies and start the backend:
 
    ```bash
    cd server
    npm install
    npm run dev
    ```
-4. En otra terminal, lanzar frontend:
+
+4. In another terminal, start the frontend:
 
    ```bash
    cd client
    npm install
    npm run dev
    ```
-5. Abrir `http://localhost:5173` en el navegador.
+
+5. Open `http://localhost:5173` in the browser.
 
 ---
+
+## 📌 Learnings and improvements
+
+- **External API**: I wanted to show more detailed data, but OpenAQ docs and deprecations limited me. With more time I would’ve implemented the measurements properly.  
+- **Frontend**: I met the requirements, but I could’ve reused components and worked on styles to better demonstrate React and UX/UI skills.  
+- **Process**: I proved to myself that I can build a full stack app from scratch to production under pressure. Next time I want to dive deeper into testing best practices and add global error handling middleware.
