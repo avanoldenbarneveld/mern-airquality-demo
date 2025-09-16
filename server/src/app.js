@@ -6,13 +6,17 @@ import airQualityRoutes from "./routes/airquality.js";
 
 const app = express();
 
-// CORS: permitir frontend en local y en Vercel
-app.use(cors({
-  origin: [
-    "http://localhost:5173",
-    "https://inbiot-fullstack-test.vercel.app"
-  ]
-}));
+// CORS: configurable via env var (CORS_ORIGIN), defaults to localhost
+const allowedOrigins = (process.env.CORS_ORIGIN || "")
+  .split(",")
+  .map(s => s.trim())
+  .filter(Boolean);
+
+app.use(
+  cors({
+    origin: allowedOrigins.length ? allowedOrigins : true,
+  })
+);
 
 app.use(express.json());
 
