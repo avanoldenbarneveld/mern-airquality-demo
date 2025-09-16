@@ -1,4 +1,4 @@
-# Inbiot Full Stack Test
+# MERN Demo — Items + Air Quality
 
 Technical test built with a **simplified MERN stack** under a tight deadline.  
 The goal was to build a backend with Express + MongoDB, a React frontend, and consume data from an external API (OpenAQ).
@@ -11,8 +11,8 @@ Beyond just meeting the requirements, my intention was to demonstrate that I cou
 
 The project can be tested directly here:
 
-➡️ [Backend on Render](https://inbiot-fullstack-test.onrender.com)  
-➡️ [Frontend on Vercel](https://inbiot-fullstack-test.vercel.app)
+➡️ [Backend on Render](https://mern-airquality-api.onrender.com)  
+➡️ [Frontend on Vercel](https://mern-airquality-demo.vercel.app/)
 
 > Note: Render puts the backend to sleep after inactivity. It’s necessary to open the backend first to “wake up” the service and then access the frontend.
 
