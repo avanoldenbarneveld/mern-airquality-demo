@@ -8,7 +8,9 @@ router.get("/", async (req, res) => {
   const { lat, lon } = req.query;
 
   if (!lat || !lon) {
-    return res.status(400).json({ error: "Missing required query parameters: lat, lon" });
+    return res
+      .status(400)
+      .json({ error: "Missing required query parameters: lat, lon" });
   }
 
   try {
@@ -18,6 +20,8 @@ router.get("/", async (req, res) => {
     );
 
     if (!response.ok) {
+      const text = await response.text();
+      console.error("[airquality] OpenAQ error:", response.status, text);
       return res.status(response.status).json({ error: "Failed to fetch from OpenAQ" });
     }
 
@@ -28,11 +32,10 @@ router.get("/", async (req, res) => {
 
     const station = data.results[0];
 
-    // Clean response
     const simplified = {
       location: station.name,
       country: station.country?.name,
-      measurements: station.sensors.map(s => ({
+      measurements: station.sensors.map((s) => ({
         parameter: s.parameter.displayName,
         unit: s.parameter.units,
         sensor: s.name,
@@ -41,7 +44,7 @@ router.get("/", async (req, res) => {
 
     res.json(simplified);
   } catch (err) {
-    console.error("[airquality] error:", err);
+    console.error("[airquality] error:", err.message);
     res.status(500).json({ error: "Server error fetching air quality" });
   }
 });
